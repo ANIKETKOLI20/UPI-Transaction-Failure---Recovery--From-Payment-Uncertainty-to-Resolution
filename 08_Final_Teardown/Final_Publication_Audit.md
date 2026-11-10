@@ -69,14 +69,14 @@ Do not copy the 2019 circular's historical reference to the 2021 Ombudsman Schem
 
 For each Help screenshot used in the PDF, record:
 
-1. Evidence ID (for example, E-005 or E-007).
+1. Canonical Evidence ID (for example, E-021 or E-029); use `Evidence_ID_Crosswalk.md` for older draft references.
 2. Exact article/page title as displayed.
 3. Exact URL, if captured or retrievable. Do not fabricate a URL.
 4. Date inspected/captured.
 5. The exact statement being cited, paraphrased accurately.
 6. Whether the item is PhonePe Help content, an in-app screen, or a secondary historical screenshot.
 
-The reviewed Help material includes guidance describing up to 48 hours for a pending-status update and a 3–5-day refund timeline for relevant failed-payment scenarios. Keep these as separate events. If the exact article title/URL or day-count convention was not captured, disclose that limitation or recover the source before publication.
+The reviewed Help material includes guidance describing up to 48 hours for a pending-status update and a 3–5-day refund timeline for relevant failed-UPI scenarios. It also distinguishes a merchant receipt dispute after PhonePe Successful (E-021) from an unconfirmed order/booking (E-023). Keep these as separate events and do not extend the 3–5-day failed-UPI refund guidance to every P2M dispute. Attribute PhonePe's Successful definition to its Help article. If the exact article URL or day-count convention was not captured, disclose that limitation or recover the source before publication.
 
 Historical internet-found pending/failed screenshots must be labelled secondary/historical. They are not proof of the current PhonePe interface.
 
@@ -160,7 +160,7 @@ Before making the repository public or publishing the PDF:
 
 Do not mark the teardown publication-ready until all are true:
 
-- [ ] Complete Evidence_Register.xlsx audited and all used E-IDs resolve.
+- [ ] Complete Evidence_Register.xlsx audited and all used canonical E-IDs resolve; older draft mappings documented in Evidence_ID_Crosswalk.md.
 - [ ] Exact PhonePe Help titles/URLs/date metadata captured or limitations disclosed.
 - [ ] RBI T+1/T+5 claims cite the 2019 circular and preserve the scenario definitions.
 - [ ] PhonePe Grievance Policy Version 10 details are accurately represented.

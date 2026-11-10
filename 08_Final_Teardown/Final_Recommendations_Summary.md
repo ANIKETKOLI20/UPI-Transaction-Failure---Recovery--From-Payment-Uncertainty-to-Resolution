@@ -29,7 +29,7 @@ The recommendations below are therefore **evidence-informed opportunities for fu
 ### Important limitations
 
 1. The 48-hour status-update guidance and 3–5-day refund guidance describe different events. They must not be presented as one combined or guaranteed timeline for every transaction.
-2. A PhonePe status of Successful, merchant payment confirmation, and order confirmation are separate concepts. A merchant's report of missing confirmation does not, by itself, prove that the beneficiary bank was not credited.
+2. PhonePe Help states that it marks a payment Successful only after receiving confirmation that money has reached the merchant. The same Help content says it does not know whether the merchant confirmed an order or provided a service. A merchant receipt dispute and an unconfirmed order/booking must be treated as separate scenarios (E-021; E-023).
 3. The reviewed successful P2P screens do not establish how the current app behaves for live P2P/P2M pending or failed transactions.
 4. The current P2M transaction-detail path, availability and naming of transaction references, and exact complaint submission/tracking route still require direct verification.
 5. No usability or comprehension study has been conducted. User confusion, duplicate-payment behaviour, and the impact of the proposed changes remain hypotheses.
@@ -70,56 +70,54 @@ Payers may better understand what to expect while a transaction is pending, what
 
 These are proposed research metrics. They are not current PhonePe performance measurements.
 
-## 4. P2M recommendation — Distinguish payment status, merchant confirmation, and order confirmation
+## 4. P2M recommendation — Distinguish merchant payment-receipt disputes from order/booking issues
 
-### User scenario
+### User scenarios
 
-A customer pays a merchant using PhonePe. The payer sees Successful in PhonePe, but the merchant reports that payment confirmation has not arrived.
+PhonePe Help documents two distinct post-payment situations:
+
+- **Merchant disputes receipt of the amount after PhonePe Successful:** PhonePe Help says it marks a payment successful only after receiving confirmation that the money has reached the merchant. If the merchant denies receipt, the payer should use `Report Issue` for the relevant payment (E-021).
+- **Order/booking not confirmed after a successful payment:** PhonePe Help says merchants do not inform PhonePe whether an order has been confirmed or a service delivered; it directs the customer to contact the merchant for an update (E-021; E-023).
+
+These are not the same scenario. The RBI-defined P2M failed-transaction category—payer debited but transaction confirmation not received at the merchant location—is a separate fact pattern, and T+5 applies only when that condition is established (E-029).
 
 ### Evidence-backed observation
 
-The PhonePe Help content reviewed includes guidance for cases where a payment appears successful but the merchant reports that payment has not been received or recognised. The Help content also distinguishes merchant payment issues from order, booking, and refund issues.
-
-The reviewed evidence does not establish whether the live transaction screen already explains these distinctions clearly.
+The inspected Help content already documents different routes for a merchant receipt dispute and an unconfirmed order/booking. It also documents a UTR lookup path in History (E-015). This evidence does not show whether the routes are easy to find in the current live transaction experience.
 
 ### Problem framing
 
-The payer may not understand the discrepancy between PhonePe's displayed transaction status and the merchant's reported lack of payment confirmation, or know which action to take next.
+The potential user problem is not that PhonePe provides no guidance. It is whether payers understand the distinction between a merchant receipt dispute and an order/booking issue, and whether they can find the matching route from the live transaction experience. This remains unvalidated.
 
-This is a plausible user problem requiring usability validation.
+### Recommendation P2M-01 — Explain PhonePe's Successful status and order confirmation separately
 
-### Recommendation P2M-01 — Status clarity
+**Make clear what PhonePe's Successful status means according to PhonePe's own guidance, and separately explain that order/booking confirmation is a merchant-side process.** Do not suggest that Successful means the order is confirmed. Attribute the status definition to PhonePe Help (E-021); do not present it as independent settlement evidence.
 
-**Explain what the Successful status indicates and distinguish it from merchant payment confirmation and order confirmation.** Make this distinction visible in the relevant transaction details experience, rather than relying only on a user finding a separate Help article.
+### Recommendation P2M-02 — Route the two issue types separately
 
-Do not state that a successful transaction is incomplete merely because a merchant reports that confirmation has not arrived. Do not claim merchant-bank credit or merchant-system receipt unless the product has reliable evidence of that event.
+Provide clear, contextual choices for:
 
-### Recommendation P2M-02 — Contextual merchant issue guidance
+- **“Merchant says payment not received”** — direct the payer to the relevant transaction's `Report Issue` route, consistent with the Help guidance (E-021).
+- **“Order or booking not confirmed”** — direct the payer to contact the merchant for an update, consistent with the Help guidance (E-023).
 
-Provide a contextual route such as **“Merchant hasn't received payment?”** from the relevant transaction details screen. The flow should guide the payer to verify the original transaction, identify the appropriate proof to share, and reach the relevant PhonePe or merchant support route.
+This is a recommendation to improve contextual presentation/discoverability, not a claim that these routes are absent today. Inspect the live app before asserting a navigation gap.
 
-Initially, this should be treated as a user-reported issue unless PhonePe has an appropriate merchant-side confirmation signal. The interface should not imply that PhonePe has independently verified the merchant's status when it has not.
+### Recommendation P2M-03 — Improve transaction-reference access only if a gap is verified
 
-### Recommendation P2M-03 — Make transaction references easy to access
-
-Ensure the applicable transaction reference, such as the UPI transaction ID or UTR/bank reference where available, is easy to locate and copy or share. First audit the current P2M transaction details experience to establish which references and sharing actions already exist. Recommend a change only where a genuine access gap is observed.
-
-Do not label every reference as “UTR” or imply that different reference identifiers are interchangeable.
+PhonePe Help already explains how to find the 12-digit UTR through History → select payment → `Debited from` (E-015). Test whether users can locate and use the applicable reference in the current P2M flow. Recommend a UI change only if testing identifies a genuine retrieval or sharing problem. Do not treat transaction ID, UTR and every other bank reference as interchangeable.
 
 ### Expected user benefit
 
-Payers may better understand what PhonePe's transaction status does and does not confirm, follow an appropriate resolution path, and be less likely to make another payment before verifying the original transaction.
-
-This is an expected benefit, not a measured outcome. Stated repeat-payment intention must not be reported as actual duplicate-payment incidence.
+Payers may more accurately classify a merchant receipt dispute versus an order/booking issue, choose the appropriate support party, and avoid making a second payment before checking the original transaction. These are expected benefits, not measured outcomes.
 
 ### Proposed validation
 
-- **Primary metric:** Correct Next-Action Rate — share of eligible participants who choose the appropriate next action for the merchant-confirmation scenario.
-- **Supporting metric:** Payment-Status Comprehension Rate — share of participants who correctly explain what the displayed payment status establishes and what it does not establish.
-- **Supporting metric:** Support-Path Selection Accuracy — share of participants who select the appropriate merchant/PhonePe support route for the scenario.
-- **Guardrail:** Incorrect Repeat-Payment Intention Rate — share of participants who say they would pay again before verifying the original transaction.
-- **Guardrail:** Incorrect Order/Payment Classification Rate — share of participants who confuse payment confirmation with order confirmation.
-- **For Recommendation P2M-03:** Transaction Reference Retrieval Success Rate — share of eligible participants who can locate and identify the applicable transaction reference in the existing or proposed interface.
+- **Primary metric:** Correct P2M Issue Classification and Next-Action Rate — share of eligible participants who correctly distinguish the two scenarios and choose the matching route.
+- **Supporting metric:** Successful-Status Meaning Comprehension — share who correctly explain PhonePe Help's stated Successful criterion and distinguish it from order confirmation.
+- **Supporting metric:** Support-Path Selection Accuracy — Report Issue for payment-receipt dispute; contact merchant for order/booking issue.
+- **Guardrail:** Incorrect Repeat-Payment Intention Rate — stated intention only, not actual duplicate payment.
+- **Guardrail:** Incorrect Payment/Order Classification Rate — incorrect conflation of order/booking confirmation and payment status.
+- **For Recommendation P2M-03:** Transaction Reference Retrieval Success Rate — measure only after current screen inspection and a defined task.
 
 These are proposed usability/comprehension measures, not current PhonePe performance measurements.
 
@@ -176,7 +174,7 @@ Do not create a real failed UPI transaction or deliberately interrupt a live pay
 
 ## 9. Conclusion
 
-The central product opportunity is to reduce avoidable uncertainty by making transaction status, merchant payment confirmation, order confirmation, and recovery actions easier to distinguish.
+The central P2M opportunity is to help payers distinguish a merchant receipt dispute from an unconfirmed order/booking and find the appropriate PhonePe or merchant route, while accurately explaining PhonePe's stated Successful status.
 
 The most defensible starting point is clearer status and timeline communication, followed by contextual merchant-issue guidance and easier access to applicable transaction references where a verified gap exists. These recommendations should be tested with users and reviewed against technical and policy constraints before being presented as confirmed product improvements.
 

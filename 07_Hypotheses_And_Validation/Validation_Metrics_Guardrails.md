@@ -2,7 +2,7 @@
 
 **Project:** PhonePe Product Teardown — *UPI Transaction Failure & Recovery: From Payment Uncertainty to Resolution*  
 **Document:** Validation_Metrics_Guardrails.md  
-**Version:** 0.1 — Working draft  
+**Version:** 0.2 — Working draft; evidence IDs reconciled and P2M scenario clarified  
 **Scope:** Payer-facing domestic UPI experience in PhonePe; P2P and P2M scenarios  
 **Status:** Proposed research and experiment designs. No usability study, comprehension test, or product experiment has been conducted as part of this document.
 
@@ -27,7 +27,7 @@ The purpose is not to claim that PhonePe has a confirmed product defect. The pur
 
 **P2P:** The payer's bank account is debited, but the beneficiary has not received the money or the final transaction outcome is not yet clear.
 
-**P2M:** The payer's bank account is debited and PhonePe displays a successful payment, but the merchant says payment confirmation has not been received.
+**P2M:** Two Help-documented situations are considered separately: (1) PhonePe displays Successful but the merchant disputes receipt of the payment; and (2) the payment is successful but the order/booking is not confirmed. The RBI-defined incident where the payer is debited but merchant transaction confirmation is not received is a separate category and must be matched to its exact facts.
 
 ### 2.2 Important distinctions
 
@@ -52,7 +52,7 @@ The working evidence set includes user-inspected PhonePe Help content and screen
 - separate Help categories for pending, failed, successful, merchant-payment, and refund issues; and
 - a distinction between a payment issue and a merchant order/booking issue.
 
-Relevant provisional evidence references include **E-005, E-006, E-007, and E-008** in the working evidence log. Confirm these IDs and attach the exact screenshots, capture dates, source URLs, and app/version details in the Evidence Register before publishing the final teardown.
+Relevant canonical evidence references include **E-006–E-008; E-010–E-017; E-021–E-026; E-029–E-031**, selected by scenario. The full mapping is in `03_Evidence_Register/Evidence_ID_Crosswalk.md`. The screenshots establish what PhonePe Help stated at capture time, not actual payment outcomes, bank processing or user behaviour. Exact article URLs, article publication/update dates, per-panel original filenames and app version remain missing or not visible.
 
 These sources support statements about the Help content that was inspected. They do **not** establish how every live transaction screen behaves, how users interpret the guidance, how quickly banks actually process reversals, or whether users make duplicate payments. The historical transaction screenshots are secondary evidence and should not be treated as proof of the current PhonePe interface.
 
@@ -196,107 +196,115 @@ This is a self-reported intention measure. It is **not** an actual duplicate-pay
 
 ### 5.1 Problem statement
 
-When PhonePe displays a merchant payment as successful but the merchant reports that payment confirmation has not been received, the payer needs clear guidance to verify the payment outcome and determine the appropriate next action, such as presenting transaction proof or seeking support. Without sufficiently clear guidance, the payer may remain uncertain and could attempt another payment before the original discrepancy is resolved, creating a potential duplicate-payment risk.
+When a payer sees a successful merchant payment but the merchant disputes receipt of the payment or the order/booking remains unconfirmed, the payer needs to distinguish a payment-receipt dispute from an order/booking issue and follow the appropriate resolution route.
 
-This is a working problem statement. It does not establish that PhonePe's current guidance causes duplicate payments or that the merchant has not received funds.
+This is a working problem statement. PhonePe Help already documents separate routes: it says a payment is marked Successful after PhonePe receives confirmation that money has reached the merchant and directs a merchant receipt dispute to `Report Issue` (E-021); for a successful payment with an unconfirmed order/booking, it directs the customer to contact the merchant (E-023). Whether users understand and can find these routes in the live experience remains unvalidated.
+
+**Keep separate:** The RBI-defined P2M failed-transaction condition is payer debit with transaction confirmation not received at the merchant location (E-029). Do not assume that an unconfirmed order/booking or every merchant report after PhonePe Successful matches that regulatory incident.
 
 ### 5.2 Hypotheses
 
 | ID | Hypothesis | Validation route | Evidence required |
 |---|---|---|---|
-| PH-01 — Confirmation visibility and next action | Payers may misunderstand what to do when PhonePe displays Successful but the merchant reports that payment confirmation has not been received. | Scenario-based comprehension test; optionally usability test the route to the relevant Help content. | Whether participants distinguish payment status from merchant confirmation and select the appropriate next step before paying again. |
-| PH-02 — Support discoverability | Payers may struggle to find the appropriate merchant/payment support route because merchant, payment, and order issues are presented in separate Help categories. | Usability task using the current app/help structure. | Route selected, task completion, time taken, and misclassification. |
-| PH-03 — Technical confirmation issue | Merchant-side payment confirmation may be delayed or unsuccessful in some cases. | Operational investigation with PhonePe, PSP, bank, and merchant-side evidence. | Correlated transaction references, payment status, acknowledgement/confirmation events, and timestamps. |
+| PH-01 — Correct scenario classification | Payers may not consistently distinguish a merchant disputing receipt of payment from a successful payment with an unconfirmed order/booking. | Two separate scenario-based comprehension tasks. | Whether participants identify the problem type and explain the difference between PhonePe's stated Successful criterion and order confirmation. |
+| PH-02 — Support-path discoverability | Payers may struggle to find the right route even though Help documents Report Issue for a payment-receipt dispute and merchant contact for an unconfirmed order. | Task-based usability test using the current app/Help flow. | Correct route selection, completion, time-to-find, misroutes and abandonment. |
+| PH-03 — Receipt/confirmation discrepancy | In some merchant disputes, payer-facing status and merchant/acquirer records may not appear to align. | Operational investigation using reconciled transaction, merchant/acquirer and payment-system records. | Correlated transaction references, payer debit, PhonePe status, merchant confirmation events and timestamps. |
 
-PH-01 is the primary teardown hypothesis because it is payer-facing and can be tested with a controlled scenario. PH-02 is a distinct navigation question. PH-03 cannot be established from the payer's screenshot or statement alone; it needs system and merchant evidence.
+PH-01 is payer-facing and can be tested with controlled scenarios. PH-02 tests route discovery. PH-03 cannot be established from public Help screenshots or a payer's verbal report; it needs operational and merchant-side evidence.
 
-### 5.3 Proposed comprehension task
+### 5.3 Proposed comprehension tasks
 
-**Scenario:** A customer pays a restaurant ₹500 using PhonePe. The payer's bank account is debited and PhonePe displays the payment as successful, but the restaurant says that it has not received payment confirmation.
+Use two distinct scenarios; do not combine them into one ambiguous prompt.
 
-Ask each participant:
+**Scenario A — Merchant disputes receipt after PhonePe Successful**
 
-1. What do you know from the information shown, and what remains unverified?
-2. Does the PhonePe Successful status prove that the restaurant's order or booking is confirmed? Explain.
-3. What would you check in the original transaction before taking another action?
-4. What would you do next if the restaurant still cannot verify the payment?
-5. Would you make the payment again immediately? Why or why not?
-6. Which support route would you choose for a payment-status issue, and which route would you choose for an order/booking issue?
+A customer pays a restaurant using PhonePe. PhonePe displays Successful. The restaurant says it has not received the amount. PhonePe Help states that it marks a payment successful after receiving confirmation that money has reached the merchant and advises the payer to report the relevant payment if the merchant denies receipt (E-021).
 
-The moderator must not imply that the merchant is wrong, that the payment definitely failed, or that the customer should contact one particular party before the participant has answered. Record the participant's reasoning as well as the selected action.
+Ask participants:
+1. What does PhonePe's Help content say its Successful status means?
+2. What remains to be checked or reconciled between PhonePe and the merchant?
+3. What is the appropriate PhonePe route described by the guidance?
+4. What transaction details/reference would you retain or share?
+5. Would you make another payment immediately? Why or why not?
+
+**Scenario B — Payment successful, order/booking not confirmed**
+
+A customer pays for an order/booking using PhonePe. The payment is successful, but the merchant has not confirmed the order or booking. PhonePe Help says merchants do not inform PhonePe whether an order has been confirmed or service delivered and directs the customer to contact the merchant for an update (E-021; E-023).
+
+Ask participants:
+1. Does successful payment status prove the order/booking has been confirmed?
+2. Which party should the payer contact for the order/booking update, according to the guidance?
+3. What would you check before considering another payment?
+4. How is this scenario different from a merchant disputing receipt of the payment?
+
+The moderator must not tell participants the expected route before they answer. Score against a predefined answer key. Record explanations, not only selections.
 
 ### 5.4 P2M metrics
 
-#### Primary metric — Correct Next-Action Rate
+#### Primary metric — Correct P2M Issue Classification and Next-Action Rate
 
-**Definition:** The percentage of eligible participants who choose an appropriate next action for the stated successful-payment/merchant-confirmation mismatch, before attempting another payment.
+**Definition:** Percentage of eligible participants who correctly identify the scenario type and select the matching next action.
 
-- **Numerator:** Eligible participants who first verify the original transaction details/status or transaction proof and then select an appropriate resolution route for the issue described, without immediately initiating a second payment.
-- **Denominator:** All eligible participants who viewed the scenario and had a valid opportunity to answer, including “unable to answer” responses.
-- **Unit:** Participant; one scored response per participant.
+- **Numerator:** Participants who correctly distinguish (A) merchant receipt dispute after PhonePe Successful — use the relevant `Report Issue` route; from (B) order/booking not confirmed after successful payment — contact the merchant for an update.
+- **Denominator:** All eligible participants exposed to the applicable scenario and given a valid opportunity to answer, including “unable to answer” responses. If both scenarios are shown, report scenario-level rates separately as well as any aggregate.
+- **Unit:** Participant-scenario response; do not treat two answers from one participant as two independent people.
 - **Observation window:** One research session.
 - **Direction:** Higher is better.
 
-**Scoring must be set before testing.** An answer should receive credit only if it distinguishes the original payment from the merchant's order/confirmation issue and does not recommend an immediate repeat payment. The answer key should identify acceptable actions for each stated condition, such as reviewing the original transaction details/receipt and choosing the relevant merchant/order or PhonePe payment-support route. Do not score every “contact support” answer as correct without checking whether the route matches the problem described.
+#### Supporting metric 1 — Successful-Status Meaning Comprehension
 
-#### Supporting metric 1 — Payment-Status Comprehension
-
-- **Numerator:** Eligible participants who correctly explain what the displayed Successful status establishes and what it does not establish about merchant confirmation or order confirmation.
-- **Denominator:** All eligible participants who viewed the scenario and had a valid opportunity to answer, including “unable to answer” responses.
-- **Unit:** Participant; one response per participant.
+- **Numerator:** Participants who accurately explain PhonePe Help's stated criterion for displaying Successful and distinguish it from order/booking confirmation.
+- **Denominator:** All eligible participants exposed to the relevant Help wording and given a valid opportunity to answer, including “unable to answer”.
+- **Unit:** Participant.
 - **Observation window:** One research session.
 - **Direction:** Higher is better.
+
+This measures comprehension of PhonePe's stated guidance. It does not independently validate the underlying payment-system event or merchant settlement.
 
 #### Supporting metric 2 — Support-Path Selection Accuracy
 
-- **Numerator:** Eligible participants who select the support route that matches the issue described, according to a predefined answer key.
-- **Denominator:** All eligible participants who were asked to choose a support route and had a valid opportunity to answer, including “unable to answer” responses.
-- **Unit:** Participant; one response per participant.
+- **Numerator:** Participants who select `Report Issue` for a merchant receipt dispute and contact the merchant for an order/booking update, according to the scenario and prewritten answer key.
+- **Denominator:** All eligible participants asked to choose a route and given a valid opportunity to answer, including “unable to answer”.
+- **Unit:** Participant-scenario response.
 - **Observation window:** One research session.
 - **Direction:** Higher is better.
 
-A payment-status problem, a merchant order/booking problem, a duplicate-payment concern, and a merchant-initiated refund are not automatically the same issue. The scoring key must account for these distinctions.
-
 #### Guardrail 1 — Incorrect Repeat-Payment Intention Rate
 
-- **Definition:** The percentage of eligible participants who say they would pay again immediately before checking the original transaction or attempting to resolve the confirmation mismatch.
-- **Numerator:** Eligible participants who indicate an intention to make a second payment before verifying the original transaction outcome.
-- **Denominator:** All eligible participants who answered the repeat-payment intention question.
-- **Unit:** Participant; one response per participant.
+- **Definition:** Percentage of participants who say they would make another payment before checking the original transaction or following the relevant route.
+- **Numerator:** Eligible participants indicating intention to pay again before verifying the original transaction.
+- **Denominator:** All eligible participants who answered the question.
+- **Unit:** Participant.
 - **Observation window:** One research session.
 - **Direction:** Lower is better.
 
-This measures stated intention in a research scenario, not actual duplicate-payment incidence.
+This is stated intention, not an actual repeat-payment attempt or duplicate successful-payment rate.
 
-#### Guardrail 2 — Incorrect Order/Payment Classification Rate
+#### Guardrail 2 — Incorrect Payment/Order Classification Rate
 
-- **Definition:** The percentage of eligible participants who incorrectly treat a merchant order/booking issue as proof that the underlying UPI payment failed, or incorrectly treat a successful payment status as proof that the order is confirmed.
-- **Numerator:** Eligible participants whose answer demonstrates either predefined classification error.
-- **Denominator:** All eligible participants who answered the classification question and had a valid opportunity to respond, including “unable to answer” responses where the scoring rubric treats inability as an unsuccessful comprehension outcome.
-- **Unit:** Participant; one response per participant.
+- **Definition:** Percentage of participants who incorrectly treat an unconfirmed order/booking as proof that the underlying UPI payment failed, or treat successful payment status as proof that the order is confirmed.
+- **Numerator:** Participants exhibiting either predefined classification error.
+- **Denominator:** All eligible participants who answered the classification question; define treatment of unable-to-answer responses before testing.
+- **Unit:** Participant.
 - **Observation window:** One research session.
 - **Direction:** Lower is better.
-
-Define the exact error categories before data collection. Do not change the scoring rule after seeing the results.
 
 ### 5.5 P2M proposed experiment
 
-**Objective:** Test whether a clearer explanation of payment status, merchant confirmation, and order confirmation helps payers choose the appropriate next action without increasing repeat-payment intention or status misclassification.
+**Objective:** Test whether a clearer explanation and scenario-specific routing help payers distinguish merchant receipt disputes from order/booking issues and choose the correct next action.
 
 | Element | Proposed design |
 |---|---|
-| Control | The existing PhonePe merchant-payment Help guidance as captured in the evidence set. Preserve its wording and presentation accurately. |
-| Treatment | A proposed revised version that separates payment status, merchant confirmation, and order/booking status; prompts the payer to verify the original transaction and use the relevant support route; and discourages an immediate repeat payment while the original outcome is unresolved. This treatment is a proposal, not existing PhonePe content. |
-| Participants | People who use or understand UPI payments and can reasonably interpret the restaurant-payment scenario. Record eligibility criteria before recruitment. |
-| Assignment | Randomly assign participants at the participant level. Each participant sees only one version for the primary comparison. |
-| Primary metric | Correct Next-Action Rate. |
-| Supporting metrics | Payment-Status Comprehension; Support-Path Selection Accuracy. |
-| Guardrails | Incorrect Repeat-Payment Intention Rate; Incorrect Order/Payment Classification Rate. |
-| Method | Controlled scenario-based comprehension test using the same facts, questions, order, and scoring rubric in both groups. |
+| Control | Existing PhonePe Help guidance captured for E-021 and E-023. Preserve the wording and scenario context accurately. |
+| Treatment | A proposed presentation that explicitly separates “Merchant says payment not received” (review transaction and use Report Issue) from “Order/booking not confirmed” (contact merchant for an update), while explaining PhonePe's stated Successful criterion. This is a proposed treatment, not existing PhonePe content. |
+| Participants | People who use or understand UPI payments and can reasonably interpret the two scenarios. Define eligibility in advance. |
+| Assignment | Random assignment at participant level. Each participant sees one version for the primary comparison to avoid carryover. |
+| Primary metric | Correct P2M Issue Classification and Next-Action Rate, reported separately by scenario. |
+| Supporting metrics | Successful-Status Meaning Comprehension; Support-Path Selection Accuracy. |
+| Guardrails | Incorrect Repeat-Payment Intention Rate; Incorrect Payment/Order Classification Rate. |
+| Method | Controlled scenario-based comprehension test using consistent facts, wording exposure, question order and prewritten scoring in both groups. |
 
-**Decision logic:** A higher Correct Next-Action Rate is not sufficient on its own. If the treatment increases repeat-payment intention or worsens payment/order classification, do not recommend rollout until the treatment is investigated and improved.
-
----
+**Decision logic:** Do not recommend rollout solely because the primary metric improves. If repeat-payment intention or payment/order misclassification worsens versus control, investigate the cause and revise/retest. Actual duplicate-payment impact requires production event/transaction data.
 
 ## 6. Metric definitions and scoring rules
 

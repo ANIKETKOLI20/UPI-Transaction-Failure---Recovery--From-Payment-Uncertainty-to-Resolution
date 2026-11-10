@@ -1,6 +1,6 @@
 # P2P Workflow — UPI Fund Transfer Recovery
 
-> **Document status:** Working draft v0.2 — evidence-informed, not a verified end-to-end production workflow.  
+> **Document status:** Working draft v0.3 — evidence-ID reconciled, not a verified end-to-end production workflow.  
 > **Workflow ID:** WF-P2P-01  
 > **Product:** PhonePe consumer UPI app  
 > **User perspective:** Payer (sender)  
@@ -38,28 +38,29 @@ The workflow is a reconstruction from the PhonePe Help screens and transaction-s
 - P2M merchant payments, merchant order fulfilment, card payments or wallet payments.
 - Actual bank/network root causes, actual reversal performance, or customer behaviour unless supported by appropriate telemetry, transaction records or user research.
 
-## 3. Evidence base used in this draft
+## 3. Evidence base — canonical Evidence Register IDs
 
-Evidence references below are provisional identifiers. They must be reconciled with the final `Evidence_Register.xlsx` before publication.
+The canonical IDs below match `03_Evidence_Register/Evidence_Register.xlsx`. Earlier draft IDs have been reconciled in `03_Evidence_Register/Evidence_ID_Crosswalk.md`.
 
-| Evidence ID | Source / item | What it supports | Evidence class |
+| Evidence ID | Source / item | What it supports | Evidence class / limitation |
 |---|---|---|---|
-| E-001 | Researcher-reported inspection of an incoming successful P2P transaction | Visible received-from, amount, date, credited-to and support details | First-hand observation reported in notes; screenshot not supplied in the record |
-| E-002 | Researcher-reported inspection of an outgoing successful P2P transaction | Visible paid-to, amount, UPI handle, transaction details and support action | First-hand observation reported in notes; screenshot not supplied in the record |
-| E-003 | Internet-found pending transaction screenshot | Historical example of a pending screen with a 48-hour message and Repeat action | Secondary visual evidence; original publication/source not established |
-| E-004 | Internet-found failed transaction screenshot | Historical example of failed status and bank-technical-issue wording | Secondary visual evidence; original publication/source not established |
-| E-005A–D | PhonePe Help content transcribed/inspected for pending, debit-without-credit, failure reasons and merchant issues | Published customer-facing instructions | PhonePe Help evidence; retain the original screenshots |
-| E-006A–E | PhonePe Payment Issues category and issue-list screens | Help information architecture and issue categories | Direct app screenshots supplied by researcher |
-| E-007 | PhonePe Help: “What do I do if my UPI payment is pending?” | Wait up to 48 hours; final status; refund guidance; notification and History | Direct Help screenshot supplied by researcher |
-| E-008 | PhonePe Help: “Why do I have to wait for 48 hours to know the final payment status?” | Banks may take 2 minutes to 48 hours to confirm final status | Direct Help screenshot supplied by researcher |
-| E-009 | PhonePe Help: “Can I cancel my pending payment?” | Initiated UPI payment cannot be cancelled; wait for final status | Direct Help screenshot supplied by researcher |
-| E-010 | PhonePe Help: “What if my payment is pending for more than 48 hours?” | Report issue to PhonePe; PhonePe says it will escalate with banking authorities | Direct Help screenshot supplied by researcher |
-| E-011 | PhonePe Help: “Why did my UPI payment fail?” | List of possible failure reasons and advice to check History before retrying | Direct Help screenshot supplied by researcher |
-| E-012 | PhonePe Help: failed UPI refund / refund not received / debit for failed payment | Refund estimate, bank-statement check, UTR and bank-contact guidance | Direct Help screenshots supplied by researcher |
-| E-013 | PhonePe Help: UTR location and beneficiary credit/account information | Where the UTR is displayed and how a receiver may verify the credited account | Direct Help screenshots supplied by researcher |
-| E-014 | PhonePe Help: chargeback steps, sample bank email and bank-denies-help article | Bank complaint information and a further escalation article | Direct Help screenshots supplied by researcher; escalation wording requires current-policy verification |
+| E-001 | Incoming successful P2P transaction details screen | Context on an observed successful incoming-payment screen | Researcher-reported observation; original filename and capture date not mapped. Not a failed/pending-flow screen. |
+| E-002 | Outgoing successful P2P transaction details screen | Context on an observed successful outgoing-payment screen | Researcher-reported observation; original filename and capture date not mapped. Not a failed/pending-flow screen. |
+| E-003 | Historical internet-found pending transaction screenshot | Historical visual example only | Secondary evidence; original source/publication date unknown. Do not present as current PhonePe UI. |
+| E-004 | Historical internet-found failed transaction screenshot | Historical visual example only | Secondary evidence; original source/publication date unknown. Do not present as current PhonePe UI. |
+| E-006 | PhonePe Help — Payment Issues categories | Help categorisation | Directly observed Help navigation screenshot; user discoverability not tested. |
+| E-007 | What do I do if my UPI payment is pending? | Up-to-48-hour status guidance, outcome descriptions and History/notification instructions | PhonePe Help content; product guidance, not a measurement of actual bank processing. |
+| E-008 | Why do I have to wait for 48 hours to know the final payment status? | PhonePe's explanation of the stated status-update window | Attribute explanation to PhonePe; not independent bank/network telemetry. |
+| E-010 | Can I cancel my pending payment? | PhonePe Help says an initiated UPI payment cannot be cancelled and asks users to wait for status | Help content; no live cancellation action tested. |
+| E-011 | What if my payment is pending for more than 48 hours? | Report-issue route after 48 hours and PhonePe's stated escalation action | Help content; exact submission, acknowledgement and tracking remain unverified. |
+| E-012 | Why did my UPI payment fail? | Possible failure reasons and check-History-before-retry wording | Possible reasons only; not a transaction-level diagnosis. |
+| E-013; E-014; E-025; E-026 | Failed-UPI debit/refund and refund escalation articles | 3–5-day guidance for relevant failed-UPI cases, bank-statement check and UTR follow-up | Attribute to PhonePe Help and keep scenario scope explicit. |
+| E-015 | Where can I find the UTR number? | History → payment → “Debited from” UTR retrieval path | Shows an existing Help-documented retrieval path; ease of use not tested. |
+| E-016; E-017 | Beneficiary account and delayed-credit guidance | How the receiver may check the relevant account and contact the bank using UTR | PhonePe Help guidance; do not infer actual credit from an SMS or merchant report alone. |
+| E-018; E-019; E-020 | Bank chargeback, sample template and bank-denies-help articles | PhonePe Help's bank follow-up content | E-020 uses potentially stale “RBI Banking Ombudsman” wording; do not repeat as current regulatory advice without verification. |
+| E-029 | RBI failed-transaction TAT circular | Defined P2P beneficiary-not-credited T+1 reversal category and compensation | Apply only when the exact P2P incident condition matches the circular. |
 
-**Capture-date note:** The screenshots' filenames and conversation record indicate 3 November 2026. Confirm this date and record the PhonePe app version in the evidence register if available. The version was not visible in the supplied screenshots.
+**Capture-date note:** The supplied Help screenshot filenames indicate 3 November 2026. The individual article URLs, publication/update dates and app version are not visible in the supplied images. Do not invent these metadata fields.
 
 ## 4. Reconstructed P2P workflow
 
@@ -128,11 +129,11 @@ Evidence references below are provisional identifiers. They must be reconciled w
 | 1. Initiation | Payer initiates a P2P transfer in PhonePe | Confirm recipient and amount before authorising | E-001/E-002 are successful-transaction observations, not failure-flow evidence |
 | 2. Status display | PhonePe Help discusses `Pending`, `Successful` and `Failed`; an internet-found screen shows a pending example | Understand the transaction state | E-003 is secondary; a current failed/pending transaction screen has not been directly inspected |
 | 3. Pending guidance | PhonePe Help says banks may take 2 minutes to 48 hours to confirm final status; it advises waiting up to 48 hours | Know whether to wait and how to check status | E-007/E-008; PhonePe's statement is product guidance, not a measurement of actual bank processing time |
-| 4. Cancellation | PhonePe Help says an initiated UPI payment cannot be cancelled and advises waiting 48 hours | Understand whether the payment can be stopped | E-009; no live cancellation action was tested |
-| 5. Status still pending after 48 hours | PhonePe Help says to report the issue from the app; PhonePe says it will escalate with banking authorities | Know how to request assistance | E-010; exact complaint submission, acknowledgement and tracking steps remain unverified |
-| 6. Failure reason | PhonePe lists UPI network, bank technical, wrong PIN, insufficient balance, bank/UPI limits, security and other bank-account reasons; it advises checking History before trying again | Understand the stated reason before any retry | E-011; these are possible reasons, not diagnoses of a particular transaction |
-| 7. Failed payment with debit | PhonePe Help says refund within 3–5 days from the payment date and recommends checking the bank statement after five days | Confirm whether funds were returned | E-012; the wording says “days” and does not specify calendar or business days in the screenshot |
-| 8. Refund not received | PhonePe Help says to contact the bank with the UTR if the refund is not received after five days | Find the reference and approach the right party | E-012–E-014; actual bank outcome is unknown |
+| 4. Cancellation | PhonePe Help says an initiated UPI payment cannot be cancelled and advises waiting 48 hours | Understand whether the payment can be stopped | E-010; no live cancellation action was tested |
+| 5. Status still pending after 48 hours | PhonePe Help says to report the issue from the app; PhonePe says it will escalate with banking authorities | Know how to request assistance | E-011; exact complaint submission, acknowledgement and tracking steps remain unverified |
+| 6. Failure reason | PhonePe lists UPI network, bank technical, wrong PIN, insufficient balance, bank/UPI limits, security and other bank-account reasons; it advises checking History before trying again | Understand the stated reason before any retry | E-012; these are possible reasons, not diagnoses of a particular transaction |
+| 7. Failed payment with debit | PhonePe Help says refund within 3–5 days from the payment date and recommends checking the bank statement after five days | Confirm whether funds were returned | E-013; E-014; E-025; the wording says “days” and does not specify calendar or business days in the screenshot |
+| 8. Refund not received | PhonePe Help says to contact the bank with the UTR if the refund is not received after five days | Find the reference and approach the right party | E-013; E-014; E-015; E-026; actual bank outcome is unknown |
 | 9. Further escalation | PhonePe has published a grievance policy with customer-support, grievance-desk and nodal-officer stages | Know the appropriate escalation route | See Section 7; do not assume that RBI Ombudsman eligibility for PhonePe PPIs applies to UPI services |
 
 ## 6. Recovery branches and key distinctions
@@ -141,8 +142,8 @@ Evidence references below are provisional identifiers. They must be reconciled w
 
 - Treat the transfer as successful only when the relevant payment/credit outcome is confirmed.
 - Do not classify a transfer as failed solely because an earlier screen displayed `Pending`.
-- PhonePe Help says a recipient using a PhonePe-registered mobile number or UPI ID can check transaction details in History; a recipient using a non-PhonePe UPI ID should check the bank account linked to that UPI ID (E-013).
-- A delayed bank SMS is not, by itself, proof that the credit did not occur; PhonePe advises checking the bank statement (E-012/E-013).
+- PhonePe Help says a recipient using a PhonePe-registered mobile number or UPI ID can check transaction details in History; a recipient using a non-PhonePe UPI ID should check the bank account linked to that UPI ID (E-016).
+- A delayed bank SMS is not, by itself, proof that the credit did not occur; PhonePe advises checking the bank statement (E-014/E-016).
 
 ### Branch B — Payer is debited, beneficiary is not credited
 
@@ -155,15 +156,15 @@ Evidence references below are provisional identifiers. They must be reconciled w
 ### Branch C — Status remains pending / outcome is unknown
 
 - Do not assume that the beneficiary has not been credited merely because the app says `Pending`.
-- PhonePe Help says initiated UPI payments cannot be cancelled and advises waiting up to 48 hours for final status (E-007–E-009).
-- Do not recommend a repeat payment while the first payment's outcome is unknown. PhonePe's separate duplicate-payment guidance advises checking the final payment status before attempting payment again (E-017).
-- If the status remains pending after 48 hours, PhonePe Help says to report the issue for escalation (E-010).
+- PhonePe Help says initiated UPI payments cannot be cancelled and advises waiting up to 48 hours for final status (E-007; E-008; E-010).
+- Do not recommend a repeat payment while the first payment's outcome is unknown. PhonePe's separate duplicate-payment guidance advises checking the final payment status before attempting payment again (E-022).
+- If the status remains pending after 48 hours, PhonePe Help says to report the issue for escalation (E-011).
 
 ### Branch D — Failed without debit / decline
 
 - This is not automatically the RBI P2P debit-without-beneficiary-credit reversal scenario.
 - Check the reason shown in History and follow the relevant guidance.
-- PhonePe lists several possible decline reasons (E-011); do not infer a technical root cause without diagnostic evidence.
+- PhonePe lists several possible decline reasons (E-012); do not infer a technical root cause without diagnostic evidence.
 
 ## 7. Regulatory and grievance overlay — verify before publication
 
@@ -240,6 +241,7 @@ https://www.npci.org.in/uploads/UPI_Help_Brand_Guidelines_86c8c28922.pdf
 |---|---|---|
 | 0.1 | 2026-11-04 | Initial reconstructed P2P workflow draft. |
 | 0.2 | 2026-11-04 | Incorporated PhonePe Help screenshot evidence; clarified the pending, failed, debit and credit branches; added the RBI P2P TAT and PhonePe grievance-policy distinction; corrected evidence limitations and escalation caveats. |
+| 0.3 | 2026-11-10 | Reconciled evidence IDs to the canonical Evidence Register and replaced bundled references with article-level IDs. |
 
 ---
 

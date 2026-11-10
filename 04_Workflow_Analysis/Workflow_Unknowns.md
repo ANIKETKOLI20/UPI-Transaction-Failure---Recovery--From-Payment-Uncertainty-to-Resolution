@@ -60,32 +60,32 @@ These statements describe the inspected help content and official published fram
 - **Timelines:** Distinguish status-update estimates, RBI reversal deadlines, complaint-resolution service levels and the time for a refund to reflect in an account.
 - **Personal data:** Redact names, phone numbers, UPI IDs, UTRs, account numbers and other transaction identifiers before adding screenshots to a public repository.
 
-## 5. Current evidence index (provisional)
+## 5. Current evidence index — canonical register IDs
 
-These references are provisional and must be reconciled with `Evidence_Register.xlsx`.
+The canonical IDs below match `03_Evidence_Register/Evidence_Register.xlsx`. Earlier draft IDs are mapped in `03_Evidence_Register/Evidence_ID_Crosswalk.md`.
 
-| Evidence ID | Evidence item | Class |
+| Evidence ID | Evidence item | Class / limitation |
 |---|---|---|
-| E-001–E-002 | Researcher-reported successful incoming/outgoing P2P transaction observations | First-hand observations reported in notes |
-| E-003–E-004 | Internet-found pending/failed transaction screenshots | Secondary visual evidence |
-| E-005A–E-005D | PhonePe Help guidance initially transcribed/reviewed | Product guidance |
-| E-006A–E-006E | PhonePe Help categories and issue-navigation screens | Direct app screenshots |
-| E-007 | “What do I do if my UPI payment is pending?” | Direct Help screenshot |
-| E-008 | “Why do I have to wait for 48 hours to know the final payment status?” | Direct Help screenshot |
-| E-009 | “Can I cancel my pending payment?” | Direct Help screenshot |
-| E-010 | “What if my payment is pending for more than 48 hours?” | Direct Help screenshot |
-| E-011 | “Why did my UPI payment fail?” | Direct Help screenshot |
-| E-012 | Failed UPI payment debit/refund and refund-not-received guidance | Direct Help screenshots |
-| E-013 | UTR location and beneficiary account/credit guidance | Direct Help screenshots |
-| E-014 | Bank chargeback, sample template and bank-denies-help guidance | Direct Help screenshots |
-| E-015 | Merchant denies receiving a successful payment | Direct Help screenshot |
-| E-016 | Duplicate payment for an order/booking | Direct Help screenshot |
-| E-017 | Order/booking not confirmed; cancelled/failed order refund guidance | Direct Help screenshots |
-| E-018 | Failed card refund guidance | Direct Help screenshots; outside core UPI scope |
-| E-019 | PhonePe Grievance Policy, Version 10, 16 July 2026 | Official PhonePe policy |
-| RBI-001 | RBI/2019-20/67, failed-transaction TAT and compensation, 20 September 2019 | Official RBI circular |
-| NPCI-001 | NPCI UPI HELP Guidelines, July 2023 | Official NPCI guidance |
-| RBI-002 | RBI FAQ: Reserve Bank–Integrated Ombudsman Scheme, 2026 | Official RBI guidance |
+| E-001–E-002 | Researcher-reported successful incoming/outgoing P2P transaction observations | First-hand observations described in prior notes; original screenshots and filenames not mapped. |
+| E-003–E-004 | Internet-found pending/failed transaction screenshots | Secondary historical visuals; source/publication date not established. |
+| E-006 | PhonePe Help Payment Issues categories | Direct category/navigation screenshot; discoverability not tested. |
+| E-007–E-008 | Pending-payment guidance and 48-hour status-update explanation | PhonePe Help statements; not actual bank telemetry. |
+| E-010–E-011 | Pending-payment cancellation and report-issue-after-48-hours guidance | Help content; current live workflow and complaint tracking remain to be verified. |
+| E-012 | Possible UPI failure reasons | Help article; possible reasons, not a diagnosis. |
+| E-013–E-014; E-025–E-026 | Failed-UPI debit/refund timelines and bank/UTR escalation | Attribute to PhonePe Help; keep to the specified failed-payment context. |
+| E-015 | UTR lookup instructions | Existing Help-documented path: History → payment → “Debited from”. Accessibility not tested. |
+| E-016–E-017 | Beneficiary bank-account and delayed-credit guidance | PhonePe Help guidance; does not prove any individual beneficiary's credit status. |
+| E-018–E-020 | Bank chargeback steps, sample template and bank-denies-help article | Help content; E-020 uses potentially stale Ombudsman terminology. |
+| E-021 | Merchant denies receipt after PhonePe Successful | PhonePe states Successful follows receipt of confirmation that money reached merchant; directs payer to Report Issue. Attribute this to PhonePe; not independent settlement evidence. |
+| E-022 | Duplicate payment for an order/booking | Help advises merchant record check, bank/UTR follow-up if needed, and checking final status before retrying. Does not establish actual repeat-payment frequency. |
+| E-023 | Successful payment but order/booking not confirmed | Help directs payer to contact merchant; distinct from payment receipt dispute. |
+| E-024 | Cancelled/failed order/booking refund | Merchant-initiated refund guidance; not automatic reversal of a failed UPI transaction. |
+| E-027–E-028 | Card refund guidance | Outside primary UPI scope. |
+| E-029 | RBI/2019-20/67 failed-transaction TAT circular | Official source; apply T+1/T+5 only to the exact specified incident categories. |
+| E-030 | NPCI UPI HELP Brand Guidelines | Official ecosystem reference; not proof of PhonePe implementation. |
+| E-031 | PhonePe Grievance Policy, Version 10 | Official company policy; revalidate exact current clauses and product applicability. |
+
+**Grouping records:** E-005 and E-009 in the workbook are index/group records, not standalone Help articles. Cite article-level IDs above wherever possible. `RBI-002` in an earlier draft has no separate canonical record yet; add it only if the exact official RBI source is retained and cited.
 
 ## 6. Research questions to resolve
 
@@ -103,7 +103,8 @@ These references are provisional and must be reconciled with `Evidence_Register.
 | Version | Date | Update | Evidence IDs added / updated | Notes |
 |---|---|---|---|---|
 | 0.1 | 2026-11-04 | Initial unknowns recorded from the workflow review. | None | Six initial unknowns documented. |
-| 0.2 | 2026-11-04 | Expanded unknowns after reviewing PhonePe Help screenshots and current official policy references. | E-005A–E-019; RBI-001–RBI-002; NPCI-001 | Added grievance-route, scenario applicability, merchant-side confirmation, current app-version and source-provenance gaps. |
+| 0.2 | 2026-11-04 | Expanded unknowns after reviewing PhonePe Help screenshots and current official policy references. | E-006–E-031; RBI-001/NPCI-001 legacy references now map to E-029/E-030; RBI-002 not yet registered | Added grievance-route, scenario applicability, merchant-side confirmation, current app-version and source-provenance gaps. |
+| 0.3 | 2026-11-10 | Reconciled all evidence references to the canonical workbook and clarified separate P2M merchant-receipt and order/booking scenarios. | E-001–E-031 | Added canonical ID crosswalk; retained open gaps where live screens, URLs, app version or transaction evidence remain unavailable. |
 
 ## 8. Completion rule
 

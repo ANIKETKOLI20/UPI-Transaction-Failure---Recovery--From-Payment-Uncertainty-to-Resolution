@@ -2,9 +2,9 @@
 ## Observations and Interpretations
 
 **Document status:** Working draft  
-**Version:** 0.1  
+**Version:** 0.2 — evidence-ID reconciled; P2M interpretation refined  
 **Scope:** PhonePe consumer UPI app, payer perspective, domestic P2P and P2M payment uncertainty  
-**Evidence basis:** Help-centre content and screenshots inspected by the researcher, plus secondary historical screenshots. Evidence IDs below are provisional and must be reconciled with the project's Evidence Register before publication.
+**Evidence basis:** PhonePe Help screenshots inspected by the researcher, selected transaction-screen observations and secondary historical screenshots. Evidence IDs below use the canonical `Evidence_Register.xlsx`; see `Evidence_ID_Crosswalk.md` for earlier draft references.
 
 ---
 
@@ -30,8 +30,8 @@ The observations primarily concern PhonePe Help content. They do **not** establi
 The inspected PhonePe Help area presents categories and article routes covering failed payments, pending payments, successful payments, merchant payment issues, and refunds. The pending and failed sections contain separate question paths; merchant-related paths include cases such as a successful payment not being acknowledged by a merchant, duplicate payments, and an order or booking not being confirmed.
 
 **Evidence to link**  
-- E-006 — Help category screenshots / inspection notes.
-- E-009 — Additional Help article screenshots, where they show the category-to-article paths.
+- E-006 — Payment Issues Help categories.
+- E-021–E-024 — Article-level merchant payment, duplicate-payment, order/booking and merchant-refund guidance.
 
 **Interpretation (not a confirmed defect)**  
 The content appears to distinguish several payment and post-payment situations rather than treating every complaint as a generic failed transaction. A possible research question is whether a payer can identify the correct route quickly when the visible transaction status and the merchant's report appear to conflict.
@@ -66,7 +66,7 @@ A comprehension test asking participants to explain, in their own words, what th
 The inspected Help material includes guidance that a UPI payment cannot be cancelled after it has been initiated.
 
 **Evidence to link**  
-- E-009 — Help article screenshot covering cancellation of a pending payment.
+- E-010 — Help article screenshot covering cancellation of a pending payment.
 
 **Interpretation (not a confirmed defect)**  
 This is relevant to setting expectations: a payer who sees a pending transaction may look for a cancellation option even though the guidance says cancellation is unavailable after initiation. It may be useful to test whether the payer understands the available next step instead of assuming the payment can be stopped.
@@ -83,8 +83,10 @@ Inspect the current transaction-detail screen and test whether participants unde
 The inspected Help content says that, for the described UPI failure/debit scenarios, the amount is generally refunded within 3–5 days from the payment date. It instructs users to check their bank statement and, where needed, contact their bank with the transaction reference/UTR. Other inspected articles explain where the UTR can be found and describe contacting the bank through its available support channels. Some articles provide different timelines for other payment methods, such as cards or wallets.
 
 **Evidence to link**  
-- E-005 — Help guidance on pending, debit-without-credit, refund, and merchant scenarios.
-- E-009 — Additional articles on refunds, UTR retrieval, bank escalation, and payment-method-specific timelines.
+- E-013; E-014; E-025; E-026 — Failed-UPI refund and bank follow-up guidance.
+- E-015 — UTR retrieval instructions.
+- E-018–E-020 — Bank chargeback and escalation articles.
+- E-024 — Merchant-initiated order/booking refund (a separate process).
 
 **Interpretation (not a confirmed defect)**  
 The recovery process described in Help may require the payer to move between PhonePe transaction information and their bank's statement or support channel. This creates a testable question about whether users know when to wait, when to check the statement, and what transaction reference to provide when contacting the bank.
@@ -95,20 +97,23 @@ It does not prove that PhonePe itself processes every refund within 3–5 days, 
 **Validation needed**  
 Test comprehension of the stated start point and next action. Separately verify the exact wording and applicability of each timeline against the current official PhonePe article and applicable official regulatory guidance before publishing a comparison.
 
-### O-05 — Help content distinguishes a payment-confirmation issue from an order or booking issue
+### O-05 — PhonePe Help separates merchant payment-receipt disputes from order/booking issues
 
 **Observed**  
-The inspected merchant-related Help material includes separate situations such as a merchant not acknowledging a payment, a successful payment with an unconfirmed order or booking, duplicate payment, and a merchant-initiated refund. The guidance also indicates that the merchant or the app/site where the order or booking was placed may be better placed to resolve some order-related issues.
+The inspected Help article on a merchant denying receipt says PhonePe marks a payment Successful only after PhonePe receives confirmation that the money has reached the merchant. The same article says merchants do not inform PhonePe whether they confirmed the order or provided the service, and directs the payer to use Report Issue for the relevant payment if the merchant denies receipt. A separate article says that when a successful payment is followed by an unconfirmed order or booking, the customer should contact the merchant for an update. Other articles cover duplicate payments and merchant-initiated refunds as separate cases.
 
 **Evidence to link**  
-- E-005 — Merchant payment guidance inspected directly in PhonePe Help.
-- E-009 — Merchant, duplicate-payment, order/booking, and refund article screenshots.
+- E-021 — Merchant disputes receipt after PhonePe Successful.
+- E-022 — Duplicate payment.
+- E-023 — Order/booking not confirmed.
+- E-024 — Cancelled/failed order or booking refund.
+- E-006 — Help category structure.
 
 **Interpretation (not a confirmed defect)**  
-The payer may need to determine whether the unresolved issue is the UPI payment itself or the merchant's order/booking process. A useful research question is whether the instructions help the payer distinguish payment confirmation from order confirmation and choose the appropriate next action.
+The Help content already distinguishes two routes: report a payment-receipt dispute to PhonePe, or contact the merchant for an unconfirmed order/booking. A valid research question is whether payers understand this distinction and can find the correct route in the live experience. PhonePe’s stated Successful criterion must be attributed to PhonePe; it is not independent proof of bank settlement or order confirmation.
 
 **What this does not prove**  
-It does not prove that a successful PhonePe status guarantees that a merchant has received or reconciled the payment, nor that the merchant's bank account has or has not been credited. It does not establish the cause of a missing merchant confirmation.
+It does not independently verify PhonePe’s underlying confirmation signal, merchant-bank settlement, or merchant-side records. It does not prove that users understand the two support paths or that the current live app exposes them clearly. An unconfirmed order does not, by itself, establish a payment failure.
 
 **Validation needed**  
 Use a clearly defined P2M scenario in a comprehension/usability test. Ask participants to distinguish payer debit, PhonePe transaction status, merchant payment confirmation, and order confirmation before selecting the next action.
@@ -119,8 +124,7 @@ Use a clearly defined P2M scenario in a comprehension/usability test. Ask partic
 The inspected failure guidance lists multiple possible reasons, including UPI/network issues, bank technical issues, an incorrect UPI PIN, insufficient balance, bank or UPI limits, security-related checks, and other account-related issues.
 
 **Evidence to link**  
-- E-005 — Failure-reason guidance.
-- E-009 — Related failure and debit/refund article screenshots.
+- E-012 — Possible UPI failure reasons.
 
 **Interpretation (not a confirmed defect)**  
 The Help material communicates that a failure can have more than one possible explanation. Without transaction-specific diagnostics, a payer may not know which explanation applies to their own transaction.
@@ -186,7 +190,7 @@ A defensible statement is narrower: **the inspected PhonePe Help material descri
 
 ## 8. Before final publication
 
-- Reconcile E-005 to E-009 with the actual Evidence Register and screenshot filenames.
+- Canonical evidence IDs now match Evidence_Register.xlsx. Exact per-panel original filenames, URLs, article publication dates and app version remain open metadata gaps; see Screenshot_Index and Open_Gaps.
 - Record the exact article title, source URL, access date, and app/version context where available.
 - Preserve screenshots or source captures for each claim.
 - Re-check Help articles and policy wording immediately before publication because the content may change.

@@ -1,7 +1,7 @@
 # Hypothesis Register — PhonePe UPI Transaction Failure & Recovery
 
 > **Document status:** Working draft — hypotheses are unvalidated unless explicitly stated otherwise.  
-> **Version:** 0.1  
+> **Version:** 0.2 — evidence-ID reconciled and P2M scope clarified  
 > **Created:** 2026-11-06  
 > **Project:** PhonePe UPI Transaction Failure & Recovery: From Payment Uncertainty to Resolution  
 > **Scope:** Consumer/payer experience for selected domestic UPI P2P and P2M scenarios.
@@ -20,11 +20,11 @@ When a P2P UPI payment remains pending in PhonePe, the payer needs clear and acc
 
 **Status:** Working problem statement; user impact and prevalence have not been established.
 
-### PS-02 — P2M payment-confirmation uncertainty
+### PS-02 — P2M payment-receipt versus order/booking issue clarity
 
-When PhonePe displays a merchant payment as successful but the merchant reports that payment confirmation has not been received, the payer needs clear guidance to verify the payment outcome and determine the appropriate next action, such as presenting transaction proof or seeking support. Without sufficiently clear guidance, the payer may remain uncertain and could attempt another payment before the original discrepancy is resolved, creating a potential duplicate-payment risk.
+When a payer sees a successful merchant payment but the merchant disputes receipt of the payment or the order/booking remains unconfirmed, the payer needs to distinguish a payment-receipt dispute from an order/booking issue and follow the appropriate resolution route. PhonePe Help documents separate routes: Report Issue for a merchant receipt dispute (E-021) and contact the merchant for an unconfirmed order/booking (E-023).
 
-**Status:** Working problem statement; current PhonePe screen behaviour, merchant-side confirmation and user impact have not been fully verified.
+**Status:** Working problem statement; users' comprehension of these routes and their discoverability in the current live experience have not been tested.
 
 ## 3. P2P diagnostic hypotheses
 
@@ -106,38 +106,38 @@ The supplied portfolio transaction dataset does not contain the diagnostic telem
 
 ## 4. P2M diagnostic hypotheses
 
-### PH-01 — Understanding payment status versus merchant confirmation
+### PH-01 — Distinguishing merchant payment-receipt disputes from order/booking issues
 
 **Hypothesis**  
-Payers may not understand the appropriate next action when PhonePe displays a successful status but the merchant reports that payment confirmation has not been received.
+When a merchant reports a problem after a successful PhonePe payment, payers may not consistently distinguish (a) a merchant disputing receipt of the payment from (b) an order or booking not being confirmed, and may therefore choose an inappropriate next action.
 
 **Why it is plausible**  
-The scenario contains two different signals: the payer-facing app status and the merchant's reported confirmation state. The payer may need to determine whether to show transaction proof, wait, seek support or take another action. This is a research question, not proof of user confusion.
+PhonePe Help documents separate routes: it says a payment is marked Successful after PhonePe receives confirmation that money has reached the merchant and directs a merchant receipt dispute to `Report Issue` (E-021); for an unconfirmed order/booking, it directs the customer to contact the merchant (E-023). The existence of these separate routes does not establish whether users understand or can find them.
 
 **Evidence that would support it**
-- In a scenario-based usability or comprehension test, participants cannot explain what the successful status establishes and what it does not establish.
-- Participants cannot identify a safe, appropriate next action when the merchant disputes receipt.
-- Participants interpret successful payment status as proof that the merchant's order or service has necessarily been confirmed.
+- In a neutral scenario test, participants classify a merchant receipt dispute as an order-fulfilment issue, or classify an unconfirmed order as a failed payment without further evidence.
+- Participants select the wrong support route or cannot explain why the route differs between scenarios.
+- Participants misunderstand PhonePe's stated Successful criterion or infer that it confirms the order/booking.
 
 **Evidence that would weaken it**
-- Participants consistently distinguish payer debit, payment confirmation, merchant credit and order confirmation.
-- Participants select an appropriate next action and can explain why another payment should not be initiated until the original discrepancy is checked.
+- Participants correctly distinguish the two scenarios and select Report Issue for a payment-receipt dispute and merchant contact for an order/booking issue.
+- The live transaction experience provides clear, contextual access to the appropriate route.
 
 **Validation method**  
-Scenario-based usability and comprehension testing. Use a neutral prompt; do not lead participants toward a preferred answer. Record their explanation and intended action.
+Run two separate scenario-based comprehension/usability tasks: (1) merchant disputes receipt after PhonePe Successful; (2) payment is successful but order/booking is not confirmed. Record classification, first selected action, support route, time-to-find and reasoning. Do not tell participants which route is expected before they respond.
 
 **Limitations**  
-A stated intention to pay again is not proof of actual repeat-payment behaviour. Actual behaviour requires suitable event data. The merchant's assertion alone does not prove that its bank account was not credited or that payment confirmation was not received by another system.
+PhonePe's Successful definition is a statement in PhonePe Help, not independent proof of merchant-bank settlement. A merchant's statement alone does not establish that its bank was not credited. Actual root cause requires merchant/acquirer/transaction evidence.
 
-**Current status:** Priority for validation; unvalidated. The earlier 3-of-5 repeat-payment example was a hypothetical classroom exercise, not actual user research.
+**Current status:** Priority for validation; unvalidated.
 
 ### PH-02 — Merchant-payment support-path discoverability
 
 **Hypothesis**  
-Payers may struggle to identify the correct support category when a merchant disputes a payment, because PhonePe separates merchant-payment confirmation issues, duplicate payments and order/booking problems into different Help topics.
+Payers may struggle to identify the correct support route between a payment-receipt dispute, a duplicate-payment issue, and an order/booking problem, even though PhonePe Help documents separate topics and next steps.
 
 **Why it is plausible**  
-The inspected Payment Issues screens show separate categories and issue types. This demonstrates categorization, but not whether users can select the correct route easily.
+The inspected Payment Issues screen shows distinct Help categories, and articles E-021 and E-023 document different next steps for merchant receipt disputes and unconfirmed orders. This establishes that the guidance is separated, but not whether users can select the correct route easily.
 
 **Evidence that would support it**
 - Participants choose an order/booking category when the issue concerns payment confirmation, or choose a payment category for an order-fulfilment issue.
@@ -148,7 +148,7 @@ The inspected Payment Issues screens show separate categories and issue types. T
 - The transaction screen offers a direct and contextually appropriate support route.
 
 **Validation method**  
-Task-based usability testing with separate scenarios for missing merchant confirmation, successful payment with an unconfirmed order, duplicate payment and merchant cancellation/refund.
+Task-based usability testing with distinct scenarios for (1) merchant disputes receipt after PhonePe Successful, (2) successful payment with an unconfirmed order/booking, (3) duplicate payment, and (4) merchant cancellation/refund.
 
 **Limitations**  
 The existence of separate Help categories does not itself establish that the information architecture is confusing or ineffective.
@@ -161,7 +161,7 @@ The existence of separate Help categories does not itself establish that the inf
 A discrepancy between the payer-facing successful status and the merchant's reported confirmation may arise from delayed or unsuccessful merchant-side confirmation or another payment-system process, rather than from a PhonePe communication problem alone.
 
 **Why it is plausible**  
-The payer-facing status and merchant-reported confirmation are separate signals. The available screenshots and Help articles do not reveal the merchant's acquiring-side records or the underlying transaction messages.
+PhonePe Help states that Successful follows confirmation that money has reached the merchant (E-021), yet a merchant may still report that the amount was not received or recognised. The available payer-facing materials do not reveal the merchant/acquirer records or the underlying transaction messages needed to reconcile that discrepancy.
 
 **Evidence that would support it**
 - Transaction and merchant/acquirer records show that the relevant confirmation was delayed, not delivered or not reflected in the merchant's system.
@@ -186,7 +186,7 @@ The following priorities are proposed for the teardown's next research activitie
 | Priority | Hypothesis | Reason for priority | Current status |
 |---|---|---|---|
 | 1 | DH-02 — Status/refund-timeline comprehension | Directly testable with the PhonePe wording already collected; important to recovery expectations. | Priority for validation |
-| 2 | PH-01 — Payment status versus merchant confirmation | Central to the P2M problem statement and can be tested with scenario-based research. | Priority for validation |
+| 2 | PH-01 — Merchant receipt dispute versus order/booking issue classification | Central to the revised P2M problem statement and testable with two separate scenarios. | Priority for validation |
 | 3 | DH-01 — Recovery-instruction discoverability | Can be tested through the current app's navigation and task success. | Unvalidated; weakened only in a hypothetical exercise |
 | 4 | PH-02 — Merchant support-path discoverability | Tests whether users can distinguish payment issues from order issues. | Unvalidated |
 | 5 | DH-03 — Bank/payment-processing delay | Important alternative explanation, but requires operational data unavailable in the current portfolio dataset. | Not tested |
@@ -204,9 +204,13 @@ If PhonePe makes the appropriate next steps more prominent on the pending-transa
 
 **Status:** Exploratory; not selected or validated.
 
-### Candidate P2M intervention hypothesis
+### Candidate P2M intervention hypothesis (exploratory)
 
-Not yet formulated. First validate whether the main difficulty concerns understanding the difference between payment status and merchant confirmation, discovering the correct support path, or an underlying merchant-side confirmation issue.
+If PhonePe presents the merchant receipt-dispute route (`Report Issue`) and the order/booking route (contact the merchant) as clearly differentiated, contextual choices from the relevant transaction experience, payers may be more likely to classify the issue correctly and select the appropriate next action.
+
+**Potential validation:** Compare current Help guidance with a proposed contextual presentation in separate merchant-receipt and order/booking scenarios. Measure scenario classification, next-action accuracy and support-path selection; retain repeat-payment intention as a guardrail only for relevant scenarios.
+
+**Status:** Exploratory; proposed for validation, not validated. First inspect the current live transaction/help route to determine whether the proposed distinction already exists.
 
 ## 7. Evidence and measurement requirements
 
@@ -243,16 +247,19 @@ Do not claim a causal effect from observational comparisons. A proposed experime
 6. **Separate PhonePe customer guidance from RBI turnaround-time requirements.** Confirm that the transaction facts match the exact regulatory scenario before comparing deadlines or compensation.
 7. **Keep every hypothesis open to rejection.** Record contradictory evidence and alternative explanations.
 
-## 9. Evidence references to reconcile
+## 9. Evidence references — canonical register IDs
 
-The following existing research materials may be relevant. Match them to the final evidence IDs in `02_Evidence_Register/Evidence_Register.xlsx`; the IDs below are topic references, not a replacement for the evidence register.
+Use `03_Evidence_Register/Evidence_Register.xlsx` as the canonical source of evidence IDs. Earlier-draft mappings are documented in `03_Evidence_Register/Evidence_ID_Crosswalk.md`.
 
-- PhonePe Help screenshots: pending-payment categories, 48-hour status-update guidance, cancellation guidance, failure reasons, refund/UTR instructions, bank escalation, merchant-payment and order/booking guidance.
-- PhonePe transaction screenshots: incoming/outgoing successful P2P screens inspected directly.
-- Internet-found transaction screenshots: pending and failed examples; retain as secondary evidence, not proof of current PhonePe app behaviour.
-- RBI: September 20, 2019 circular on harmonisation of turnaround time and customer compensation for failed transactions.
-- NPCI: UPI HELP Brand Guidelines, July 2023; use as a dated ecosystem reference and verify current implementation separately.
-- PhonePe: current Grievance Policy and applicable Help/UPI terms; record the exact URL, version/date and relevant section in the evidence register.
+- **P2P pending/status:** E-007; E-008; E-010; E-011.
+- **P2P failure reasons and refund/UTR:** E-012; E-013; E-014; E-015; E-016; E-017; E-025; E-026.
+- **P2P bank escalation:** E-018; E-019; E-020 (the Ombudsman terminology in E-020 may be stale; do not present as current regulatory advice).
+- **P2M category and merchant/order scenarios:** E-006; E-021; E-022; E-023; E-024.
+- **Regulatory / ecosystem / company policy:** E-029 (RBI); E-030 (NPCI); E-031 (PhonePe Grievance Policy).
+- **Secondary historical UI examples:** E-003; E-004. Do not present as current PhonePe screens.
+- **Successful P2P transaction-screen context:** E-001; E-002.
+
+E-005 and E-009 in the canonical workbook are grouping records only. Prefer article-level evidence IDs in claims. `RBI-002` mentioned in an earlier draft is not yet in the canonical register and must not be cited until the exact official source is added.
 
 ## 10. Completion criteria
 

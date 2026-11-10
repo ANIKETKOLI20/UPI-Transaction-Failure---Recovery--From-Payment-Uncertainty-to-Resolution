@@ -54,46 +54,43 @@ flowchart TD
 
 ---
 
-## 2. P2M workflow — PhonePe shows successful, merchant reports no confirmation
+## 2. P2M workflow — separate merchant receipt dispute from order/booking issue
 
-**Scoped scenario:** The payer's account is debited and PhonePe displays **Successful**, but the merchant says payment confirmation has not arrived.
+**Scope:** PhonePe Help documents two separate situations after a successful merchant payment. They must not be conflated with the RBI-defined P2M failed-transaction incident unless the specific debit and missing-merchant-transaction-confirmation conditions are established.
 
 ```mermaid
 flowchart TD
-    A[Customer initiates a merchant UPI payment] --> B[Payer's bank account is debited]
-    B --> C[PhonePe displays Successful]
-    C --> D[Merchant reports that payment confirmation has not arrived]
+    A[Customer initiates a merchant UPI payment] --> B[PhonePe displays transaction status]
+    B --> C{What issue is reported?}
 
-    D --> E[Do not assume the merchant bank was or was not credited]
-    E --> F[Payer verifies the original transaction details]
-    F --> G[Check amount, date/time, status and applicable transaction reference / UTR]
-    G --> H[Check the relevant payer bank-account record where appropriate]
-    H --> I[Share transaction proof/reference with the merchant]
-    I --> J{Has the merchant reconciled / recognised the payment?}
-    J -->|Yes| K[Confirm the order or service separately]
-    J -->|No / still uncertain| L[Use the appropriate PhonePe Help / support route]
-    L --> M[Provide transaction details and follow the resolution guidance]
+    C -->|Merchant says amount not received| D[PhonePe Help says Successful follows confirmation that money reached merchant]
+    D --> E[Use Report Issue for the relevant payment]
+    E --> F[Provide transaction details and follow payment-dispute route]
 
-    C -. separate question .-> N[Order confirmation: has the merchant confirmed the order?]
-    N -. not equivalent to payment status .-> O[Check with the merchant's ordering system]
+    C -->|Order or booking not confirmed| G[Payment may be successful while order status is unresolved]
+    G --> H[Contact merchant for an order or booking update]
+
+    C -->|Payer debited; merchant transaction confirmation not received| I[Check whether exact RBI-defined P2M failure condition is met]
+    I --> J[Apply T+5 reversal framework only if incident facts match]
+
+    C -->|Duplicate payment or merchant refund| K[Follow the separate merchant/bank refund guidance]
 ```
 
 ### P2M notes for the report
 
-1. **Successful** is the status displayed by PhonePe in the scoped scenario. It does not, by itself, prove that the merchant's ordering system has confirmed the order.
-2. A merchant's report of missing confirmation does not prove that the merchant's bank account was not credited. Avoid asserting the underlying bank or network cause without operational evidence.
-3. The payer should verify the original transaction before deciding whether another payment is necessary. The proposed experience should discourage an unverified repeat payment; do not claim that duplicate payments are common without transaction data.
-4. The inspected PhonePe Help material recognises merchant-payment issues, including successful payments where the merchant reports not receiving confirmation. It also indicates that the merchant may be better placed to resolve certain order or booking issues. Preserve the distinction between payment resolution and order fulfilment.
-5. The transaction-reference step is a proposed emphasis in the visual. Inspect the current P2M transaction screen before claiming that the transaction ID or UTR is missing or difficult to access.
-
----
+1. PhonePe Help states that a payment is marked Successful only after PhonePe receives confirmation that money has reached the merchant (E-021). Attribute this statement to PhonePe; it is not independent proof of bank settlement or merchant ledger reconciliation.
+2. The same Help article says merchants do not inform PhonePe whether they confirmed the order or provided the service. A successful payment therefore does not establish order/booking confirmation (E-021).
+3. If the merchant disputes receipt after a successful status, PhonePe Help directs the payer to `Report Issue` for the relevant payment (E-021).
+4. If the order/booking is not confirmed after successful payment, PhonePe Help directs the payer to contact the merchant for an update (E-023).
+5. The RBI T+5 rule applies to the defined P2M incident where the payer is debited but transaction confirmation is not received at the merchant location (E-029). Do not apply it automatically to an unconfirmed order, duplicate payment or every merchant dispute.
+6. PhonePe Help already documents a UTR retrieval path (E-015). Do not recommend adding UTR access unless a current-flow audit demonstrates a retrieval/sharing problem.
 
 ## 3. Proposed product experience overlay
 
 The following is a **recommendation**, not a verified current PhonePe screen:
 
 1. **Explain status:** State what the displayed UPI status means and what it does not confirm.
-2. **Separate confirmation types:** Distinguish payment status, merchant payment confirmation, and order confirmation.
+2. **Separate issue types:** Distinguish a merchant receipt dispute from an unconfirmed order/booking, and explain PhonePe's stated Successful criterion with attribution.
 3. **Provide the right next step:** Offer a contextual merchant-issue route when the payer reports missing confirmation.
 4. **Expose transaction proof:** Make the applicable transaction reference easy to locate and copy/share, where available.
 5. **Prevent premature retry:** Encourage verification of the original transaction before another payment is attempted.
