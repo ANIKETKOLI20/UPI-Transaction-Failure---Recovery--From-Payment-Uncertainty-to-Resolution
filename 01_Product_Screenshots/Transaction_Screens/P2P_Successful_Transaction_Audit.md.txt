@@ -1,0 +1,147 @@
+# P2P Successful Transaction and Recovery Guidance Audit
+
+## 1. Audit purpose
+
+Inspect the payer-facing PhonePe experience for an existing successful outgoing P2P UPI transaction and assess how the transaction details screen, in-app support journey, and previously collected PhonePe Help guidance address a beneficiary-not-credited concern.
+
+This is an observational audit. No failed payment was deliberately initiated, no false complaint was submitted, and no bank dispute was raised.
+
+## 2. Inspection scope and provenance
+
+- Product: PhonePe consumer app
+- Flow: Outgoing P2P UPI transfer
+- Transaction used: An existing successful transaction
+- User perspective: Payer
+- Method: Researcher inspection and user-reported observations in this project conversation
+- Exact app inspection timestamp: Not separately recorded
+- PhonePe app version / device / OS: Not recorded
+- Help Centre screenshot batch: Previously supplied by the researcher; filenames indicate 3 November 2026, but individual article capture dates should be verified against original files
+
+**Provenance note:** The live-app observations below were reported by the researcher during the inspection. No new redacted P2P support screenshots were attached with the latest observations. Do not present the text notes as screenshot evidence.
+
+## 3. Successful P2P transaction details screen
+
+| Element | Observation | Evidence status |
+|---|---|---|
+| Transaction status | Displays `Transaction Successful` | Researcher-reported direct observation |
+| UTR / transaction reference | Visible | Researcher-reported direct observation |
+| Recipient details | Visible | Researcher-reported direct observation |
+| Payment details | Visible | Researcher-reported direct observation |
+| Receipt sharing | Available | Researcher-reported direct observation |
+| Support access | Available | Researcher-reported direct observation |
+| Beneficiary-not-credited guidance on this screen | Not visible on the inspected screen | Limited to this particular screen |
+
+### Preliminary interpretation
+
+The inspected successful P2P details screen exposes the transaction status, UTR, recipient and payment information, receipt sharing, and a support entry point. The specific beneficiary-not-credited guidance was not visible directly on that screen.
+
+This does **not** mean that PhonePe lacks a beneficiary-not-credited support route. The support journey and Help Centre must be assessed separately.
+
+## 4. P2P support journey observations
+
+After opening Payment Support for the selected successful transaction, the researcher reported seeing:
+
+- Recipient name.
+- Recipient bank name.
+- Recipient bank account information. Whether the full account number is masked was not confirmed; do not copy or publish the account number.
+- A prompt asking whether further help is needed, with `Yes, I need help` and `No, I got it` options.
+- An option to raise a bank dispute with the bank.
+
+After selecting `Yes, I need help`, the researcher reported seeing:
+
+1. Transaction amount, payment date and payment time, together with the recipient information.
+2. Information identifying the bank account that was debited.
+3. A further-help prompt with suggested issue topics.
+
+The suggested topics reported were:
+
+- Amount not credited to a specific user.
+- Money sent to the wrong account / UPI ID.
+- Want a refund or cancel the payment.
+- Offer-related query.
+- Report fraud for this payment.
+
+The researcher did not select a problem that did not apply to the successful transaction and did not submit a complaint, report fraud, or raise a bank dispute.
+
+### What this establishes
+
+The observed support journey includes an issue-specific route labelled `Amount not credited to a specific user`, as well as a bank-dispute option. Therefore, it would be inaccurate to claim that PhonePe has no support route for a P2P beneficiary-not-credited issue.
+
+The journey also displays transaction and bank context. Whether those details are automatically attached to a formal support case, and whether a formal case ID or status tracking is created, were not established.
+
+## 5. P2P Help Centre recovery guidance audit
+
+The researcher confirmed that the previously supplied PhonePe Help screenshots cover all five areas below. The canonical Evidence Register IDs are listed for traceability.
+
+| Audit check | Result reported by researcher | Canonical evidence references | What the source supports |
+|---|---|---|---|
+| 48-hour pending-status guidance | Yes | E-007, E-008 | PhonePe Help says a pending UPI payment may take up to 48 hours to receive a final status update; the explanation attributes the window to banking timelines. |
+| Refund timeline | Yes | E-013, E-014, E-025 | PhonePe Help describes a 3–5-day refund timeline from the payment date for relevant failed UPI payment scenarios. This is not a universal timeline for every pending payment or merchant dispute. |
+| UTR instructions | Yes | E-015 | PhonePe Help explains where to locate the UTR in transaction details (History → selected payment → `Debited from`) and references the bank statement. |
+| Bank-contact instructions | Yes | E-017, E-026 | PhonePe Help describes bank follow-up using the UTR in relevant beneficiary-credit or failed-refund scenarios. The specific instructions differ by scenario; do not collapse them into one generic route. |
+| Report Issue / escalation | Yes | E-011, E-018, E-019, E-026 | PhonePe Help describes reporting a payment that remains pending beyond 48 hours, bank chargeback routes and information to provide, and contacting the bank with the UTR when a failed-payment refund has not arrived after the stated period. |
+
+### Scope and terminology cautions
+
+- `Up to 48 hours` describes the pending-status update window in the inspected Help content. It is not the same as the time for a refund to reflect.
+- `3–5 days` is PhonePe Help wording for relevant failed-UPI refund scenarios. Do not apply it automatically to every successful payment, pending payment, or merchant order issue.
+- The Help article about the receiver not seeing an instant credit (E-017) gives recipient-side bank statement and bank follow-up guidance. Keep the receiver's role distinct from the payer's bank follow-up for an unreceived refund (E-026).
+- The Help article on payments pending for more than 48 hours (E-011) describes a Report Issue route and escalation with banking authorities.
+- The bank chargeback articles (E-018 and E-019) describe bank channels and the information to provide. The article's stated 60-day instruction should be attributed to PhonePe Help and not converted into a universal legal deadline without independent verification.
+- E-020 contains historical wording referring to the `RBI Banking Ombudsman`. Do not present that wording as current regulatory guidance without checking the current official RBI framework.
+
+### Difference from the previously supplied screenshots
+
+No new article screenshots were supplied for this latest check. The researcher referred to the screenshots already shared earlier. Accordingly, this audit records that the five topics are covered in the previously supplied Help material; it does not claim that the articles were independently re-captured or that no wording changes have occurred since the original capture batch.
+
+## 6. Evidence-backed findings
+
+1. The inspected successful P2P transaction details screen displays transaction status, UTR, recipient details, payment details, receipt-sharing functionality, and support access.
+2. The beneficiary-not-credited route was not visible directly on the inspected transaction details screen.
+3. The subsequent support journey presents an issue-specific `Amount not credited to a specific user` option and a bank-dispute option.
+4. The previously supplied PhonePe Help articles cover pending-status timing, relevant failed-payment refund guidance, UTR retrieval, bank follow-up, and Report Issue / escalation routes.
+
+These findings establish that recovery guidance exists across the transaction-support and Help Centre experience. They do not establish how easy the route is to discover, whether users understand the guidance, or whether support cases are resolved successfully.
+
+## 7. Interpretation and product opportunity
+
+### Interpretation
+
+The payer-facing journey appears to provide the necessary categories of recovery information across several locations: transaction details, contextual support, and Help articles. The remaining question is not whether a support route exists, but how clearly and consistently the user is guided from the transaction screen to the appropriate issue-specific resolution path.
+
+### Potential product opportunity
+
+Improve the continuity and discoverability of the beneficiary-not-credited resolution path from the successful transaction details screen, while clearly distinguishing:
+
+- PhonePe's displayed transaction status;
+- the beneficiary's actual bank-account credit;
+- the pending-status update window;
+- refund guidance for a transaction that is ultimately marked failed; and
+- bank follow-up using the applicable UTR.
+
+This is a proposed opportunity, not a validated usability defect. The current evidence does not prove that users cannot find or understand the existing support route.
+
+## 8. What remains unverified
+
+- The exact content shown after selecting `Amount not credited to a specific user` in a genuine applicable case.
+- Whether a formal complaint is created and whether a complaint/reference ID is generated.
+- Whether users can track the status of a submitted complaint.
+- Whether UTR and transaction details are automatically attached to a support case, rather than merely displayed in the conversation.
+- Whether the same support flow appears across app versions, partner banks, transaction types, and user circumstances.
+- Whether the recipient bank account information is masked in the live app.
+- Whether users can find and correctly interpret the existing recovery path (requires usability testing).
+
+Because the inspected transaction was successful, do not select an issue category that falsely reports a missing beneficiary credit. Do not submit a false complaint or initiate a bank dispute for research purposes.
+
+## 9. Evidence and privacy handling
+
+- Existing canonical Help article references: E-007, E-008, E-011, E-013, E-014, E-015, E-017, E-018, E-019, E-025, and E-026.
+- Existing legacy live P2P transaction reference: E-002. This is a legacy record; exact original filename mapping remains to be confirmed.
+- The newly described live support journey should be added to the Evidence Register as a new researcher-observation record only if the researcher retains a screenshot or contemporaneous notes. Do not assign an E-ID manually without updating the canonical workbook.
+- Before public sharing, redact recipient names, UPI IDs, bank account numbers, UTRs, transaction IDs, phone numbers, and other personal or financial identifiers.
+
+## 10. Provisional conclusion
+
+The inspected PhonePe P2P successful transaction screen provides transaction details, a visible UTR, receipt sharing, and support access. The support journey offers an `Amount not credited to a specific user` issue path and a bank-dispute option. Previously supplied PhonePe Help screenshots also document the pending-status window, relevant failed-UPI refund guidance, UTR retrieval, bank follow-up, and reporting/escalation instructions.
+
+The evidence therefore does not support a claim that PhonePe lacks beneficiary-not-credited support guidance. The defensible product opportunity is to investigate the clarity, discoverability, and continuity of the existing route. User comprehension, complaint tracking, and actual resolution outcomes remain unverified.
